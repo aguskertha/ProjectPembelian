@@ -28,15 +28,8 @@
               <Component id="buttonRegister" min="-2" pref="101" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="textUsername" min="-2" pref="156" max="-2" attributes="0"/>
-                          <Component id="textPassword" min="-2" pref="156" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
                       <Component id="labelUsername" min="-2" max="-2" attributes="0"/>
@@ -46,8 +39,15 @@
                       <Component id="labelPassword" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="buttonLogin" min="-2" pref="67" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
+                      <Component id="buttonLogin" min="-2" pref="88" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="textUsername" pref="156" max="32767" attributes="0"/>
+                          <Component id="textPassword" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace pref="127" max="32767" attributes="0"/>
@@ -63,9 +63,9 @@
               <Component id="textUsername" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Component id="labelPassword" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="textPassword" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Component id="buttonLogin" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="46" max="32767" attributes="0"/>
               <Component id="buttonRegister" min="-2" max="-2" attributes="0"/>
@@ -87,12 +87,13 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textUsername">
     </Component>
-    <Component class="javax.swing.JTextField" name="textPassword">
-    </Component>
     <Component class="javax.swing.JButton" name="buttonLogin">
       <Properties>
         <Property name="text" type="java.lang.String" value="Login"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonLoginActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonRegister">
       <Properties>
@@ -101,6 +102,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRegisterActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="textPassword">
     </Component>
   </SubComponents>
 </Form>

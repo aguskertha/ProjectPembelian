@@ -56,7 +56,7 @@ public class HomeKaryawanFrame extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "No", "Tgl Transaksi", "Pelanggan", "Total"
             }
         ));
         jScrollPane1.setViewportView(tableTransaksi);
@@ -96,6 +96,8 @@ public class HomeKaryawanFrame extends javax.swing.JFrame {
 
     private void buttonKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKeluarActionPerformed
         // TODO add your handling code here:
+        new LoginFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_buttonKeluarActionPerformed
 
     /**

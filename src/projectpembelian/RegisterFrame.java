@@ -5,6 +5,8 @@
  */
 package projectpembelian;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Audy
@@ -14,6 +16,11 @@ public class RegisterFrame extends javax.swing.JFrame {
     /**
      * Creates new form RegisterForm
      */
+    static private String jenisAkun = "Karyawan";
+    static private String username = "zaid";
+    static private String email = "zaid@pens.ac.id";
+    static private String password = "123";
+    
     public RegisterFrame() {
         initComponents();
     }
@@ -44,7 +51,7 @@ public class RegisterFrame extends javax.swing.JFrame {
 
         labelJenisAkun.setText("Jenis Akun");
 
-        cboxJenisAkun.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxJenisAkun.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pelanggan", "Karyawan" }));
 
         labelUsername.setText("Username");
 
@@ -55,8 +62,18 @@ public class RegisterFrame extends javax.swing.JFrame {
         jLabel6.setText("Confirm Password");
 
         buttonRegister.setText("Register");
+        buttonRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRegisterActionPerformed(evt);
+            }
+        });
 
         buttonLogin.setText("Login");
+        buttonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLoginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,6 +136,52 @@ public class RegisterFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buttonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegisterActionPerformed
+        // TODO add your handling code here:
+        //Do Insert Data User
+       
+        this.password = textPassword.getText();
+        
+        if(checkPassword(this.password, (String)(textConfirmPassword.getText()))){
+            this.jenisAkun = (String)cboxJenisAkun.getSelectedItem();
+            this.username = textUsername.getText();
+            this.email = textEmail.getText();
+            JOptionPane.showMessageDialog(this, "Akun berhasil dibuat!");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Akun gagal dibuat!");
+            this.password = "123";
+        }
+//        thi
+//        System.out.println(this.jenisAkun);
+    }//GEN-LAST:event_buttonRegisterActionPerformed
+
+    public boolean checkPassword(String password, String confirmPassword){
+        return password.equals(confirmPassword);
+    }
+    
+    private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
+        // TODO add your handling code here:
+        new LoginFrame().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_buttonLoginActionPerformed
+    
+    public String getJenisAkun(){
+        return this.jenisAkun;
+    }
+    
+    public String getUsername(){
+        return this.username;
+    }
+    
+    public String getPassword(){
+        return this.password;
+    }
+    
+    public String getEmail(){
+        return this.email;
+    }
+    
     /**
      * @param args the command line arguments
      */
