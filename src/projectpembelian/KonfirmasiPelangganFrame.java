@@ -5,6 +5,10 @@
  */
 package projectpembelian;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
@@ -14,8 +18,18 @@ public class KonfirmasiPelangganFrame extends javax.swing.JFrame {
     /**
      * Creates new form KonfirmasiPelangganFrame
      */
+    private static HomePelangganFrame homePelangganFrame;
+    private LinkedList<Object> detailTransaksi = new LinkedList<Object>();
+    
     public KonfirmasiPelangganFrame() {
+        
         initComponents();
+        try{
+            homePelangganFrame = new HomePelangganFrame();
+        }
+        catch(IndexOutOfBoundsException e){
+            
+        }
     }
 
     /**
@@ -38,6 +52,8 @@ public class KonfirmasiPelangganFrame extends javax.swing.JFrame {
 
         jLabel2.setText("(BOLEH DIKOSONGKAN)");
 
+        textIdPelanggan.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
         textKonfirmasi.setText("KONFIRMASI");
         textKonfirmasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -49,30 +65,33 @@ public class KonfirmasiPelangganFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textKonfirmasi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textIdPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel2))
                     .addComponent(jLabel1))
                 .addContainerGap(75, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(textKonfirmasi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(textIdPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(7, 7, 7)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(textIdPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addComponent(textKonfirmasi)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
@@ -82,8 +101,38 @@ public class KonfirmasiPelangganFrame extends javax.swing.JFrame {
 
     private void textKonfirmasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textKonfirmasiActionPerformed
         // TODO add your handling code here:
+        boolean flag = false;
+        if(!this.homePelangganFrame.getListPembayaran().isEmpty()){
+            Iterator value = this.homePelangganFrame.getListPembayaran().iterator();
+            int i=0;
+            String username = textIdPelanggan.getText();
+            while (value.hasNext()) {
+                LinkedList<Object> temp = (LinkedList<Object>) value.next();
+                if(temp.get(2).equals(username)){
+                    this.detailTransaksi = temp;
+                    value.remove();
+                    flag = true;
+                }
+            }
+            if(flag){
+                new HomeKaryawanFrame(this).setVisible(true);
+                dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "Tidak ada data tercatat!");
+                new HomeKaryawanFrame().setVisible(true);
+                dispose();
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Tidak ada data tercatat!");
+            new HomeKaryawanFrame().setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_textKonfirmasiActionPerformed
-
+    
+    LinkedList<Object> getDetailTransaksi(){
+        return this.detailTransaksi;
+    }
     /**
      * @param args the command line arguments
      */

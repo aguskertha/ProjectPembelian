@@ -5,6 +5,8 @@
  */
 package projectpembelian;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,13 +18,12 @@ public class RegisterFrame extends javax.swing.JFrame {
     /**
      * Creates new form RegisterForm
      */
-    static private String jenisAkun = "Karyawan";
-    static private String username = "zaid";
-    static private String email = "zaid@pens.ac.id";
-    static private String password = "123";
+    
+    static ArrayList<LinkedList<Object>> listUser = new ArrayList<LinkedList<Object>>();
     
     public RegisterFrame() {
         initComponents();
+        createDummyUser();
     }
 
     /**
@@ -52,6 +53,11 @@ public class RegisterFrame extends javax.swing.JFrame {
         labelJenisAkun.setText("Jenis Akun");
 
         cboxJenisAkun.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pelanggan", "Karyawan" }));
+        cboxJenisAkun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxJenisAkunActionPerformed(evt);
+            }
+        });
 
         labelUsername.setText("Username");
 
@@ -139,23 +145,51 @@ public class RegisterFrame extends javax.swing.JFrame {
     private void buttonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegisterActionPerformed
         // TODO add your handling code here:
         //Do Insert Data User
+        String jenisAkun = (String)cboxJenisAkun.getSelectedItem();
+        String username = textUsername.getText();
+        String email = textEmail.getText();
+        String password = textPassword.getText();
        
-        this.password = textPassword.getText();
         
-        if(checkPassword(this.password, (String)(textConfirmPassword.getText()))){
-            this.jenisAkun = (String)cboxJenisAkun.getSelectedItem();
-            this.username = textUsername.getText();
-            this.email = textEmail.getText();
+        if(checkPassword(password, (String)(textConfirmPassword.getText()))){
+            LinkedList<Object> user = new LinkedList<Object>();
+            user.add(jenisAkun);
+            user.add(username);
+            user.add(email);
+            user.add(password);
+            
+            this.listUser.add(user);
+            
             JOptionPane.showMessageDialog(this, "Akun berhasil dibuat!");
+            new LoginFrame().setVisible(true);
+            dispose();
         }
         else{
             JOptionPane.showMessageDialog(this, "Akun gagal dibuat!");
-            this.password = "123";
         }
 //        thi
 //        System.out.println(this.jenisAkun);
     }//GEN-LAST:event_buttonRegisterActionPerformed
 
+    void createDummyUser(){
+        this.listUser.add(setDummyUser("Pelanggan", "agus", "agus@pens.ac.id", "121212"));
+        this.listUser.add(setDummyUser("Pelanggan", "kertha", "kertha@pens.ac.id", "121212"));
+        this.listUser.add(setDummyUser("Karyawan", "zaid", "zaid@pens.ac.id", "121212"));
+    }
+    
+    LinkedList<Object> setDummyUser(String jenis, String username, String email, String password){
+        LinkedList<Object> dummy = new LinkedList<Object>();
+        dummy.add(jenis);
+        dummy.add(username);
+        dummy.add(email);
+        dummy.add(password);
+        return dummy;
+    }
+    
+    ArrayList<LinkedList<Object>> getListUser(){
+        return this.listUser;
+    }
+    
     public boolean checkPassword(String password, String confirmPassword){
         return password.equals(confirmPassword);
     }
@@ -165,22 +199,26 @@ public class RegisterFrame extends javax.swing.JFrame {
         new LoginFrame().setVisible(true);
         dispose();
     }//GEN-LAST:event_buttonLoginActionPerformed
+
+    private void cboxJenisAkunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxJenisAkunActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxJenisAkunActionPerformed
     
-    public String getJenisAkun(){
-        return this.jenisAkun;
-    }
-    
-    public String getUsername(){
-        return this.username;
-    }
-    
-    public String getPassword(){
-        return this.password;
-    }
-    
-    public String getEmail(){
-        return this.email;
-    }
+//    public String getJenisAkun(){
+//        return this.jenisAkun;
+//    }
+//    
+//    public String getUsername(){
+//        return this.username;
+//    }
+//    
+//    public String getPassword(){
+//        return this.password;
+//    }
+//    
+//    public String getEmail(){
+//        return this.email;
+//    }
     
     /**
      * @param args the command line arguments

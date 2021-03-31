@@ -5,6 +5,14 @@
  */
 package projectpembelian;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Audy
@@ -14,8 +22,25 @@ public class HomeKaryawanFrame extends javax.swing.JFrame {
     /**
      * Creates new form HomeKaryawan
      */
+    Date date = new Date();
+    SimpleDateFormat simpleDate = new SimpleDateFormat("HH:mm:ss");
+    LoginFrame loginFrame = new LoginFrame();
+    static ArrayList<LinkedList<Object>> listPembayaran = new ArrayList<LinkedList<Object>>();
+    
     public HomeKaryawanFrame() {
         initComponents();
+        if(!loginFrame.getCurrentUser().isEmpty()){
+            addTransaksiToTable();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Silahkan login terlebih dahulu!");
+        }
+    }
+    
+    public HomeKaryawanFrame(KonfirmasiPelangganFrame konfirmasiPelanggan) {
+        initComponents();
+        this.listPembayaran.add(konfirmasiPelanggan.getDetailTransaksi());
+        addTransaksiToTable();
     }
 
     /**
@@ -50,10 +75,7 @@ public class HomeKaryawanFrame extends javax.swing.JFrame {
 
         tableTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "No", "Tgl Transaksi", "Pelanggan", "Total"
@@ -92,8 +114,24 @@ public class HomeKaryawanFrame extends javax.swing.JFrame {
 
     private void buttonTransaksiBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTransaksiBaruActionPerformed
         // TODO add your handling code here:
+        new KonfirmasiPelangganFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_buttonTransaksiBaruActionPerformed
 
+    public void addTransaksiToTable(){
+
+        DefaultTableModel model = (DefaultTableModel) tableTransaksi.getModel();
+        Iterator value = listPembayaran.iterator();
+        int i=0;
+        while (value.hasNext()) {
+            LinkedList<Object> temp = (LinkedList<Object>) value.next();
+            temp.set(0, ++i);
+            Object[] obj = temp.toArray();
+            model.addRow(obj);
+        }
+       
+    }
+    
     private void buttonKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKeluarActionPerformed
         // TODO add your handling code here:
         new LoginFrame().setVisible(true);

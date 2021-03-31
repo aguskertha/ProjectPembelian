@@ -5,6 +5,13 @@
  */
 package projectpembelian;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
@@ -14,8 +21,42 @@ public class TambahProdukFrame extends javax.swing.JFrame {
     /**
      * Creates new form TambahProdukFrame
      */
+    static HashMap<String, Integer> produk = new HashMap<String, Integer>();
+    LinkedList<Object> detailProduk = new LinkedList<Object>();
+    static private int hargaProduk;
+    static private String namaProduk;
+    static private int jumlahProduk;
+    static private int subTotal;
+    static private int count = 0;
     public TambahProdukFrame() {
         initComponents();
+        initVariables();
+    }
+    
+    public TambahProdukFrame(int sizeTable){
+        
+    }
+    
+    void initVariables(){
+        this.cboxPilihProduk.addItem("Pilih Produk") ;
+        
+        this.produk.put("Agile Principle", 190000);
+        this.produk.put("Clean Code Programming", 200000);
+        this.produk.put("Design Paterns", 230000);
+        this.produk.put("Object Oriented Design", 199000);
+        
+        String produk = null;
+        Set entryProduk = getSetProduk();
+        Iterator it = entryProduk.iterator();
+        while(it.hasNext()){
+            Map.Entry me = (Map.Entry) it.next();
+            produk = (String) me.getKey();
+            this.cboxPilihProduk.addItem(produk);
+        }
+    }
+    
+    public Set getSetProduk(){
+        return this.produk.entrySet();
     }
 
     /**
@@ -42,7 +83,11 @@ public class TambahProdukFrame extends javax.swing.JFrame {
 
         jLabel1.setText("PILIH PRODUK");
 
-        cboxPilihProduk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxPilihProduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxPilihProdukActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("HARGA SATUAN");
 
@@ -58,6 +103,11 @@ public class TambahProdukFrame extends javax.swing.JFrame {
         });
 
         buttonBatal.setText("BATAL");
+        buttonBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBatalActionPerformed(evt);
+            }
+        });
 
         textJumlah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,18 +125,17 @@ public class TambahProdukFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(buttonBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboxPilihProduk, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textHargaSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxPilihProduk, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textHargaSatuan, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(textSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(textJumlah, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textSubTotal, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -120,11 +169,71 @@ public class TambahProdukFrame extends javax.swing.JFrame {
 
     private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
         // TODO add your handling code here:
+        try{
+            if(this.cboxPilihProduk.getSelectedIndex()==0){
+                throw new NullPointerException("Silahkan pilih Produk!");
+            }
+            if(this.jumlahProduk == 0){
+                throw new NullPointerException("Silahkan inputkan jumlah produk!");
+            }
+            this.detailProduk.add(1);
+            this.detailProduk.add(this.namaProduk);
+            this.detailProduk.add(this.hargaProduk);
+            this.detailProduk.add(this.jumlahProduk);
+            this.detailProduk.add(this.subTotal);
+            new HomePelangganFrame(this).setVisible(true);
+            dispose();
+        }catch(NullPointerException e){
+             JOptionPane.showMessageDialog(this, e);
+        }
     }//GEN-LAST:event_buttonTambahActionPerformed
 
+    LinkedList<Object> getDetailProduk(){
+        return this.detailProduk;
+    }
+    
     private void textJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textJumlahActionPerformed
         // TODO add your handling code here:
+        try{
+            this.jumlahProduk = Integer.parseInt(this.textJumlah.getText());
+            this.subTotal = this.jumlahProduk * this.hargaProduk;
+            this.textSubTotal.setText(Integer.toString(this.subTotal));
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Inputan jumlah berupa angka!");
+        }
     }//GEN-LAST:event_textJumlahActionPerformed
+
+    private void buttonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBatalActionPerformed
+        // TODO add your handling code here:
+        new HomePelangganFrame().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_buttonBatalActionPerformed
+
+    private void cboxPilihProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPilihProdukActionPerformed
+        // TODO add your handling code here:
+        
+        String produk = null;
+        int harga = 0;
+        Set entryProduk = getSetProduk();
+        Iterator it = entryProduk.iterator();
+        while(it.hasNext()){
+            Map.Entry me = (Map.Entry) it.next();
+            produk = (String) me.getKey();
+            harga = (int) me.getValue();
+            if(this.cboxPilihProduk.getSelectedIndex() != 0 
+                    && this.cboxPilihProduk.getSelectedItem().equals(produk) ){
+                this.textHargaSatuan.setText(Integer.toString(harga));
+                this.hargaProduk = harga;
+                this.namaProduk = produk;
+                this.jumlahProduk = 1;
+                this.subTotal = this.hargaProduk * this.jumlahProduk;
+                this.textSubTotal.setText(Integer.toString(this.subTotal));
+                this.textJumlah.setText(Integer.toString(this.jumlahProduk));
+            }
+//            this.cboxPilihProduk.addItem(produk);
+        }
+    }//GEN-LAST:event_cboxPilihProdukActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,7 +5,10 @@
  */
 package projectpembelian;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
+import static projectpembelian.HomeKaryawanFrame.listPembayaran;
 
 /**
  *
@@ -17,9 +20,9 @@ public class LoginFrame extends javax.swing.JFrame {
      * Creates new form LoginFrame
      */
     RegisterFrame registerFrame = new RegisterFrame();
-    
+    static LinkedList<Object> currentUser = new LinkedList<Object>();
     public LoginFrame() {
-        System.out.println(registerFrame.getJenisAkun());
+//        System.out.println(registerFrame.getJenisAkun());
         initComponents();
     }
 
@@ -116,10 +119,9 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = textUsername.getText();
         String password = textPassword.getText();
-        System.out.println(this.registerFrame.getUsername());
-        System.out.println(this.registerFrame.getPassword());
+        
         if(this.checkAkun(username, password)){
-            if(registerFrame.getJenisAkun() == "Pelanggan"){
+            if(this.currentUser.getFirst() == "Pelanggan"){
                 new HomePelangganFrame().setVisible(true);
                 dispose();
             }
@@ -133,9 +135,22 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonLoginActionPerformed
 
+    LinkedList<Object> getCurrentUser(){
+        return this.currentUser;
+    }
+    
     public boolean checkAkun(String username, String password){
-        return this.registerFrame.getUsername().equals(username) 
-                && this.registerFrame.getPassword().equals(password);
+        Iterator value = this.registerFrame.getListUser().iterator();
+        while (value.hasNext()) {
+            LinkedList<Object> temp = (LinkedList<Object>) value.next();
+            String tempUsername = (String) temp.get(1);
+            String tempPassword = (String) temp.getLast();
+            if(tempUsername.equals(username) && tempPassword.equals(password)){
+                this.currentUser = temp;
+                return true;
+            }
+        }
+        return false;
     }
     
     /**

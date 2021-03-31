@@ -25,19 +25,17 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="buttonBatal" min="-2" pref="297" max="-2" attributes="0"/>
                   <Component id="buttonTambah" min="-2" pref="297" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
-                  <Component id="cboxPilihProduk" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
-                  <Component id="textHargaSatuan" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                  <Component id="cboxPilihProduk" alignment="1" max="32767" attributes="0"/>
+                  <Component id="textHargaSatuan" alignment="1" max="32767" attributes="0"/>
                   <Component id="jLabel4" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
-                  <Component id="jLabel3" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Component id="textSubTotal" min="-2" pref="158" max="-2" attributes="0"/>
-                      <Component id="textJumlah" min="-2" pref="197" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="textJumlah" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel1" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
+                  <Component id="jLabel3" alignment="0" min="-2" pref="107" max="-2" attributes="0"/>
+                  <Component id="jLabel2" alignment="0" min="-2" pref="136" max="-2" attributes="0"/>
+                  <Component id="textSubTotal" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="41" max="32767" attributes="0"/>
           </Group>
@@ -80,14 +78,12 @@
     <Component class="javax.swing.JComboBox" name="cboxPilihProduk">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboxPilihProdukActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -119,6 +115,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="BATAL"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBatalActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="textJumlah">
       <Events>
